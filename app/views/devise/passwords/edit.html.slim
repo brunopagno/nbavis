@@ -1,0 +1,15 @@
+.container
+  h3 Trocar minha senha
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'col-lg-4 col-md-6 col-sm-6' }) do |f|
+    = f.error_notification
+
+    = f.input :reset_password_token, as: :hidden
+    = f.full_error :reset_password_token
+
+    .form-group
+      = f.input :password, label: "Nova senha", required: true, autofocus: true
+    .form-group
+      = f.input :password_confirmation, label: "Confirmar senha", required: true
+
+    .form-actions
+      = f.button :submit, "Trocar minha senha"

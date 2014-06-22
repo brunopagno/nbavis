@@ -1,0 +1,24 @@
+footer
+  .container
+    p.pull-left
+      = 'NBA-Vis'
+      = ' | '
+      = link_to 'sobre o projeto', '#about-nbavis', data: { toggle: 'modal' }
+    p.pull-right
+      = 'Desenvolvido por '
+      = link_to 'Bruno Pagno', 'http://brunopagno.tumblr.com', target: '_blank'
+
+
+#about-nbavis.modal.fade tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        = button_tag 'x', type: 'button', data: { dismiss: 'modal' }, :'aria-hidden' => true, class: 'close'
+        h3 Sobre o NBA-Vis
+      .modal-body
+        p
+          | O NBA-Vis é um projeto criado para a disciplina de Visualização de Informações cursada durante o mestrado do autor. Os dados presentes neste projeto foram extraídos de 
+          = link_to 'DatabaseBasketball', 'http://www.databasebasketball.com/', target: :_blank
+          | .
+      .modal-footer
+        = button_tag 'Fechar', type: 'button', data: { dismiss: 'modal' }, :'aria-hidden' => true, class: 'btn btn-link'

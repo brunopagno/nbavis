@@ -1,0 +1,30 @@
+body {
+  background: #ddd;
+  color: #666;
+}
+
+a {
+  color: rgb(63, 179, 153);
+
+  &:hover {
+    color: #93bfde;
+    text-decoration: none;
+  }
+}
+
+.body-content {
+  min-height: 640px;
+  margin-top: 24px;
+}
+
+.center {
+  text-align: center;
+}
+
+.clear {
+  clear: both;
+}
+
+.little-margin {
+  margin-bottom: 20px;
+}
