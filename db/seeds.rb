@@ -47,7 +47,3 @@ if Player.all.empty?
     )
   end
 end
-
-if User.all.empty?
-  User.create(name:'Admin', email:'admin@admin.com', password:'asdf', password_confirmation:'asdf')
-end
