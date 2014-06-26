@@ -13,6 +13,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'simple_form', '~> 3.0.1'
 gem 'jquery-rails'
+gem 'gon'
 
 group :doc do
   gem 'sdoc', require: false

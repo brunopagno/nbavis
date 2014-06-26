@@ -29,7 +29,7 @@ if Player.all.empty?
       year:                   player_data[1],
       games_played:           player_data[6],
       minutes:                player_data[7],
-      points:                 player_data[6],
+      points:                 player_data[8],
       offensive_rebounds:     player_data[9],
       defensive_rebounds:     player_data[10],
       rebounds:               player_data[11],

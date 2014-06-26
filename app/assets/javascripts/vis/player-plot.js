@@ -8,12 +8,18 @@ var width = 240 - margin.left - margin.right;
 var height = 240 - margin.top - margin.bottom;
 var labelMargin = 8;
 
-
-function get_player_star(player) {
+function draw_player_star(element_id, player) {
   var star = d3.starPlot()
     .width(width)
-    .properties(['asts', 'turnover', 'blk', 'reb', 'stl', 'pts'])
-    .scales(d3.scale.linear().domain([0, 100]).range([0, 100]))
+    .properties(['assists', 'turnovers', 'blocks', 'rebounds', 'steals', 'points'])
+    .scales([
+          d3.scale.linear().domain([0, gon.max_assists]).range([0, 100]),
+          d3.scale.linear().domain([0, gon.max_turnovers]).range([0, 100]),
+          d3.scale.linear().domain([0, gon.max_blocks]).range([0, 100]),
+          d3.scale.linear().domain([0, gon.max_rebounds]).range([0, 100]),
+          d3.scale.linear().domain([0, gon.max_steals]).range([0, 100]),
+          d3.scale.linear().domain([0, gon.max_points]).range([0, 100])
+        ])
     .labels(['Assists', 'Turnovers', 'Blocks', 'Rebounds', 'Steals', 'Points'])
     .title(function(p) { return player.firstname + ' ' + player.lastname; })
     .margin(margin)
@@ -21,10 +27,9 @@ function get_player_star(player) {
 
   star.includeLabels(true);
 
-  var wrapper = d3.select('.body-content').append('div')
-    .attr('class', 'col-lg-3 col-md-3 col-sm-4 col-xs-6');
+  var wrapper = d3.select('#' + element_id).append('div')
 
-  var svg = d3.select('.body-content').append('svg')
+  var svg = wrapper.append('svg')
     .attr('class', 'chart')
     .attr('width', width + margin.left + margin.right)
     .attr('height', width + margin.top + margin.bottom);
@@ -33,6 +38,42 @@ function get_player_star(player) {
     .datum(player)
     .call(star)
     .call(star.interaction);
-}
 
-// p = {'asts':4, 'turnover':3, 'blk':1, 'reb':2, 'stl':2, 'pts':21, 'firstname':'Mike', 'lastname':'Elliot'}
+  var interactionLabel = wrapper.append('div')
+    .attr('class', 'interaction interaction-label');
+
+  var circle = svg.append('circle')
+    .attr('class', 'interaction interaction-circle')
+    .attr('r', 5);
+
+  var interaction = wrapper.selectAll('.interaction')
+    .style('display', 'none');
+
+  svg.selectAll('.star-interaction')
+    .on('mouseover', function(d) {
+      svg.selectAll('.star-label')
+        .style('display', 'none');
+
+      interaction
+        .style('display', 'block');
+
+      circle
+        .attr('cx', d.x)
+        .attr('cy', d.y);
+
+      $interactionLabel = $(interactionLabel.node());
+      leftoye = (d.xExtent - String($interactionLabel.width() / 2)) + 'px';
+      topoye = (d.yExtent - String($interactionLabel.height() / 2)) + 'px';
+      interactionLabel
+        .text(d.key + ': ' + d.datum[d.key])
+        .style('left', leftoye)
+        .style('top', topoye);
+    })
+    .on('mouseout', function(d) {
+      interaction
+        .style('display', 'none')
+
+      svg.selectAll('.star-label')
+        .style('display', 'block')
+    });
+}

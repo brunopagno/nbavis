@@ -47,6 +47,9 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.0)
+    gon (5.0.4)
+      actionpack (>= 2.3.0)
+      json
     hike (1.2.3)
     i18n (0.6.9)
     jquery-rails (3.1.0)
@@ -175,6 +178,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2.0)
+  gon
   jquery-rails
   letter_opener
   machinist (~> 2.0)
