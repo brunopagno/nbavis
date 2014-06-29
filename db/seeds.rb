@@ -1,10 +1,36 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+if Team.all.empty?
+  File.readlines('db/basketballdatabase/team_season.csv').each do |line|
+    next if line.include?('team,year,leag')
+    team_data = line.split(',')
+
+    team = Team.find_by_alias(team_data[0])
+    team = Team.create(
+      alias: team_data[0]
+    ) unless team
+
+    TeamData.create(
+      team:                   team,
+      year:                   team_data[1],
+      field_goals_made:       team_data[3],
+      field_goals_attempted:  team_data[4],
+      free_throws_made:       team_data[5],
+      free_throws_attempted:  team_data[6],
+      offensive_resbounds:    team_data[7],
+      defensive_rebounds:     team_data[8],
+      rebounds:               team_data[9],
+      assists:                team_data[10],
+      personal_fouls:         team_data[11],
+      steals:                 team_data[12],
+      turnovers:              team_data[13],
+      blocks:                 team_data[14],
+      three_points_made:      team_data[15],
+      three_points_attempted: team_data[16],
+      points:                 team_data[17],
+      won:                    team_data[19],
+      lost:                   team_data[20],
+    )
+  end
+end
 
 if Player.all.empty?
   File.readlines('db/basketballdatabase/player_regular_season.csv').each do |line|
@@ -23,7 +49,7 @@ if Player.all.empty?
       alias: player_data[4]
     ) unless team
 
-    PlayerStats.create(
+    PlayerData.create(
       player:                 player,
       team:                   team,
       year:                   player_data[1],

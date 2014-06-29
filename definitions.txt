@@ -1,0 +1,18 @@
+TEAM TIMELINE
+
+Shows the teams in parallel coordinates splitted by year
+Shows besides the team the "team leader"
+
+It should be zoomable by year, then show the team, and a player list ordered by "best to worse"
+Highlight the best player
+
+Maybe it should be zoomable by player and then show complete player info with their star plot and yey
+
+
+TODO:
+
+CREATE THE PLAYERDATA TABLE
+CREATE THE TEAMDATA TABLE
+
+UPDATE PLAYERSTATS REFERENCES
+ADD TEAMDATA TO SEEDS FILE

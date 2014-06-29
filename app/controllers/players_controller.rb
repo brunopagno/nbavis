@@ -1,17 +1,29 @@
 class PlayersController < ApplicationController
   include ApplicationHelper
 
+  before_action :set_maxs, except: :index
+
   def index
     @players = Player.all
   end
 
+  def player
+    @player = Player.find(params[:id])
+    @player_data = PlayerData.where(player: @player)
+  end
+
   def year
     @year = params[:year]
-    @stats = PlayerStats.where(year: @year).limit(4)
+    @player_data = PlayerData.where(year: @year)
     rank = params[:rank]
     if rank
-      @stats.order!(rank => :desc)
+      @player_data.order!(rank => :desc)
     end
+  end
+
+  private
+
+  def set_maxs
     gon_set_maxs
   end
 

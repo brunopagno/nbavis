@@ -14,20 +14,4 @@ p
   |  | 
   = link_to 'points', by_year_path(rank: 'points')
 
-- @stats.each do |player_stats|
-  .col-lg-3.col-md-3.col-sm-4.col-xs-6
-    .player-star[id="player-stats-#{player_stats.id.to_s}" data-firstname="#{player_stats.player.firstname}" data-lastname="#{player_stats.player.lastname}" data-assists="#{player_stats.assists}" data-turnovers="#{player_stats.turnovers}" data-blocks="#{player_stats.blocks}" data-rebounds="#{player_stats.rebounds}" data-steals="#{player_stats.steals}" data-points="#{player_stats.points}"]
-
-javascript:
-  $('.player-star').each(function(index) {
-    draw_player_star($(this).attr('id'), {
-      'firstname':  $(this).data('firstname'),
-      'lastname':   $(this).data('lastname'),
-      'assists':    $(this).data('assists'),
-      'turnovers':  $(this).data('turnovers'),
-      'blocks':     $(this).data('blocks'),
-      'rebounds':   $(this).data('rebounds'),
-      'steals':     $(this).data('steals'),
-      'points':     $(this).data('points')
-    });
-  });
+= render partial: 'player_data', locals: { player_datas: @player_data }

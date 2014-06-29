@@ -21,13 +21,14 @@ function draw_player_star(element_id, player) {
           d3.scale.linear().domain([0, gon.max_points]).range([0, 100])
         ])
     .labels(['Assists', 'Turnovers', 'Blocks', 'Rebounds', 'Steals', 'Points'])
-    .title(function(p) { return player.firstname + ' ' + player.lastname; })
+    .title(function(p) { return player.firstname + ' ' + player.lastname + ' - ' + player.year; })
     .margin(margin)
     .labelMargin(labelMargin);
 
   star.includeLabels(true);
 
   var wrapper = d3.select('#' + element_id).append('div')
+    .attr('class', 'star-wrapper');
 
   var svg = wrapper.append('svg')
     .attr('class', 'chart')

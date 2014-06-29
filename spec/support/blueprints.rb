@@ -23,3 +23,11 @@ end
 PlayerStats.blueprint do
   # Attributes here
 end
+
+PlayerData.blueprint do
+  # Attributes here
+end
+
+TeamData.blueprint do
+  # Attributes here
+end

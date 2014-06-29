@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'pages#home'
+  root 'teams#index'
   get '/players', to: 'players#index'
-  get '/players/:year(/:rank)', to: 'players#year', as: 'by_year'
+  get '/player/:id', to: 'players#player', as: 'player'
+  get '/year/:year(/:rank)', to: 'players#year', as: 'by_year'
 end

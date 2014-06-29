@@ -6,7 +6,7 @@ module ApplicationHelper
     gon.max_blocks    = PlayerStats.maximum(:blocks)
     gon.max_rebounds  = PlayerStats.maximum(:rebounds)
     gon.max_steals    = PlayerStats.maximum(:steals)
-    gon.max_points    = PlayerStats.maximum(:points)    
+    gon.max_points    = PlayerStats.maximum(:points)
   end
 
 end

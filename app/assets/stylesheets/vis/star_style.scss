@@ -2,6 +2,14 @@
   position: relative;
   display: inline-block;
 }
+.star-wrapper {}
+.star-bg {
+  position: absolute;
+  opacity: 0.2; 
+  z-index: -1;
+  width: 252px;
+  top: 10px;
+}
 .chart {
   margin-bottom: 40px;
 }

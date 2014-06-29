@@ -1,3 +1,4 @@
 h2 Players
 - @players.each do |player|
-  p = player.firstname + ' ' + player.lastname
+  p
+    = link_to player.firstname + ' ' + player.lastname, player_path(player)

@@ -1,6 +1,6 @@
-class CreatePlayerStats < ActiveRecord::Migration
+class CreatePlayerData < ActiveRecord::Migration
   def change
-    create_table :player_stats do |t|
+    create_table :player_data do |t|
       t.references :player, index: true
       t.references :team, index: true
       t.integer :year
