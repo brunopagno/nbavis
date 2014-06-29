@@ -1,4 +1,7 @@
 h2 Teams
+
+= render partial: 'teams_plot', locals: { teams: @teams }
+
 - @teams.each do |t|
   .row
     p = t.alias

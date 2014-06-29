@@ -1,14 +1,9 @@
-var margin = {
-  top: 32,
-  right: 50,
-  bottom: 20,
-  left: 50
-};
-var width = 240 - margin.left - margin.right;
-var height = 240 - margin.top - margin.bottom;
-var labelMargin = 8;
-
 function draw_player_star(element_id, player) {
+  var margin = { top: 32, right: 50, bottom: 20, left: 50 };
+  var width = 240 - margin.left - margin.right;
+  var height = 240 - margin.top - margin.bottom;
+  var labelMargin = 8;
+
   var star = d3.starPlot()
     .width(width)
     .properties(['assists', 'turnovers', 'blocks', 'rebounds', 'steals', 'points'])
