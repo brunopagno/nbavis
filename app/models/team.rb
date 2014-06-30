@@ -12,4 +12,8 @@ class Team < ActiveRecord::Base
     end
     return Player.find(pids)
   end
+
+  def most_epic_players
+    return self.player_datas.sort_by { |pd| -pd.relevance }.first(5)
+  end
 end

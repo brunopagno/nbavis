@@ -9,7 +9,6 @@ class PlayersController < ApplicationController
 
   def player
     @player = Player.find(params[:id])
-    @player_data = PlayerData.where(player: @player)
   end
 
   def year

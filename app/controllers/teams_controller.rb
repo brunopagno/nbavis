@@ -7,6 +7,14 @@ class TeamsController < ApplicationController
     @teams = Team.all
   end
 
+  def teams
+    @teams = Team.all
+  end
+
+  def team
+    @team = Team.find(params[:id])
+  end
+
   private
 
   def teams_js

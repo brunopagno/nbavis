@@ -1,11 +1,63 @@
+$team_aliases = [
+  { a:'ATL', n:'Atlanta Hawks' },
+  { a:'BOS', n:'Boston Celtics' },
+  { a:'CHI', n:'Chicago Bulls' },
+  { a:'CLE', n:'Clevland Cavaliers' },
+  { a:'DAL', n:'Dallas Mavericks' },
+  { a:'DEN', n:'Denver Nuggets' },
+  { a:'DET', n:'Detroit Pistons' },
+  { a:'GSW', n:'Golden State Warriors' },
+  { a:'HOU', n:'Houston Rockets' },
+  { a:'IND', n:'Indiana Pacers' },
+  { a:'KCK', n:'Kansas City Kings' },
+  { a:'LAL', n:'Los Angeles Lakers' },
+  { a:'MIL', n:'Milwalkee Bucks' },
+  { a:'NKN', n:'New York Nets' },
+  { a:'NYK', n:'New York Knicks' },
+  { a:'PHI', n:'Philadelphia 76ers' },
+  { a:'PHO', n:'Phoenix Suns' },
+  { a:'POR', n:'Portland Trailblazers' },
+  { a:'SAS', n:'San Antonio Spurs' },
+  { a:'SDC', n:'San Diego Clippers' },
+  { a:'SEA', n:'Seatle Supersonics' },
+  { a:'UTA', n:'Utah Jazz' },
+  { a:'WA1', n:'Washington Bullets' },
+  { a:'LAC', n:'Los Angeles Clippers' },
+  { a:'SAC', n:'Sacramento Kings' },
+  { a:'CHA', n:'Charlotte Hornets' },
+  { a:'MIA', n:'Miami Heat' },
+  { a:'MIN', n:'Minnesota Timberwolves' },
+  { a:'ORL', n:'Orlando Magic' },
+  { a:'TOR', n:'Toronto Raptors' },
+  { a:'VAN', n:'Vancouver Grizzlies' },
+  { a:'WAS', n:'Washington Wizards' },
+  { a:'MEM', n:'Memphis Grizzlies' },
+  { a:'NOH', n:'New Orleans Hornets' },
+  { a:'CHR', n:'Charlotte Bobcats' },
+  { a:'NOO', n:'New Orleans Hornets' },
+  { a:'OKC', n:'Oklahoma City Thunder' },
+  { a:'TOT', n:'[[PLAYER TOTAL]]' },
+  { a:'NJN', n:'New Jersey Nets' },
+]
+
+def get_team_name(a)
+  $team_aliases.each do |ta|
+    if ta[:a] == a
+      return ta[:n]
+    end
+  end
+end
+
 if Team.all.empty?
   File.readlines('db/basketballdatabase/team_season.csv').each do |line|
     next if line.include?('team,year,leag')
     team_data = line.split(',')
 
     team = Team.find_by_alias(team_data[0])
+    teamname = get_team_name(team_data[0])
     team = Team.create(
-      alias: team_data[0]
+      alias: team_data[0],
+      name: teamname
     ) unless team
 
     TeamData.create(

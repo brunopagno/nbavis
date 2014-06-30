@@ -1,3 +1,9 @@
 header
   .container
-    p Header here
+    = link_to 'Home', root_path
+    |  | 
+    = link_to 'Teams', teams_path
+    |  | 
+    = link_to 'Players', players_path
+    |  | 
+    = link_to 'Player ranking', by_year_path(2009)
