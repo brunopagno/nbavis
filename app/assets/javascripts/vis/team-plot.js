@@ -66,7 +66,7 @@ function draw_team_scaterplot(element_id) {
       .data(teams)
     .enter().append("image")
       .attr("class", function(team) { return "dot " + team.img })
-      .attr("xlink:href", function(team) { return '/assets/logos/'+team.img+'.gif'; })
+      .attr("xlink:href", function(team) { return team.imgp; })
       .attr("x", function(team) { return x(team.year - 0.5); })
       .attr("y", function(team) { return y(team.wins); })
       .attr("height", 10)

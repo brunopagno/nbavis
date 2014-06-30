@@ -10,7 +10,15 @@ class TeamsController < ApplicationController
   private
 
   def teams_js
-    teams_to_js(Team.all)
+    teams = Team.all
+    tt = []
+    teams.each do |team|
+      team.team_datas.each do |team_data|
+        td = { year: team_data.year.to_s, wins: team_data.won, img: team.alias, imgp: ActionController::Base.helpers.image_path('logos/'+team.alias+'.gif') }
+        tt << td
+      end
+    end
+    gon.teams = tt
   end
 
 end
