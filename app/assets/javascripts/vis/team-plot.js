@@ -62,6 +62,14 @@ function draw_team_scaterplot(element_id) {
       .style("text-anchor", "end")
       .text("Wins");
 
+  container.append("text")
+      .attr("id", "teamname")
+      .attr("x", width / 2)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d; });
+
   container.selectAll(".dot")
       .data(teams)
     .enter().append("image")
@@ -78,31 +86,16 @@ function draw_team_scaterplot(element_id) {
             .style('opacity', 0.1);
           container.selectAll('.' + team.img)
             .style('opacity', 1);
+          container.select('#teamname')
+            .text(team.name);
         })
       .on("mouseout",
         function(team) {
           container.selectAll('.dot')
             .style('opacity', 1);
+          container.select('#teamname')
+            .text('');
         });
-
-  var legend = svg.selectAll(".legend")
-      .data(color.domain())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
 
   function zoom() {
     container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");

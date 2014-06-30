@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
     tt = []
     teams.each do |team|
       team.team_datas.each do |team_data|
-        td = { year: team_data.year.to_s, wins: team_data.won, img: team.alias, imgp: ActionController::Base.helpers.image_path('logos/'+team.alias+'.gif') }
+        td = { year: team_data.year.to_s, wins: team_data.won, name: team_data.team.name, img: team.alias, imgp: ActionController::Base.helpers.image_path('logos/'+team.alias+'.gif') }
         tt << td
       end
     end
