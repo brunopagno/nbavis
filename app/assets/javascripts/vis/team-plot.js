@@ -85,8 +85,6 @@ function draw_team_scaterplot(element_id) {
             .style('opacity', 1);
         });
 
-
-
   function zoom() {
     container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
   }

@@ -26,8 +26,8 @@ if Team.all.empty?
       three_points_made:      team_data[15],
       three_points_attempted: team_data[16],
       points:                 team_data[17],
-      won:                    team_data[35],
-      lost:                   team_data[36],
+      won:                    team_data[34],
+      lost:                   team_data[35],
     )
   end
 end
