@@ -9,10 +9,12 @@ class TeamsController < ApplicationController
 
   def teams
     @teams = Team.all
+    gon_set_maxs
   end
 
   def team
     @team = Team.find(params[:id])
+    gon_set_maxs
   end
 
   private
