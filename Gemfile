@@ -15,6 +15,8 @@ gem 'simple_form', '~> 3.0.1'
 gem 'jquery-rails'
 gem 'gon'
 
+gem 'rails_12factor', group: :production
+
 group :doc do
   gem 'sdoc', require: false
 end
