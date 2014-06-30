@@ -6,8 +6,8 @@ function draw_team_scaterplot(element_id) {
 
   var x = d3.scale.linear().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
-  x.domain([1979, 2010]);
-  y.domain([0, 90]);
+  x.domain([1998, 2010]);
+  y.domain([8, 70]);
 
   var color = d3.scale.category10();
 
@@ -67,10 +67,10 @@ function draw_team_scaterplot(element_id) {
     .enter().append("image")
       .attr("class", function(team) { return "dot " + team.img })
       .attr("xlink:href", function(team) { return team.imgp; })
-      .attr("x", function(team) { return x(team.year); })
+      .attr("x", function(team) { return x(team.year - 0.16); })
       .attr("y", function(team) { return y(team.wins); })
-      .attr("height", 10)
-      .attr("width", 15)
+      .attr("height", 20)
+      .attr("width", 30)
       .style("fill", function(team) { return color(team.species); })
       .on("mouseover",
         function(team) {
