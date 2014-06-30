@@ -21,13 +21,26 @@ function draw_team_scaterplot(element_id) {
       .scale(y)
       .orient("left");
 
+  var zoom = d3.behavior.zoom()
+      .scaleExtent([1, 10])
+      .on("zoom", zoom);
+
   var svg = d3.select(element_id).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(zoom);
 
-  svg.append("g")
+  var rect = svg.append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .style("fill", "none")
+      .style("pointer-events", "all");
+
+  var container = svg.append("g");
+
+  container.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
@@ -38,7 +51,7 @@ function draw_team_scaterplot(element_id) {
       .style("text-anchor", "end")
       .text("Year");
 
-  svg.append("g")
+  container.append("g")
       .attr("class", "y axis")
       .call(yAxis)
     .append("text")
@@ -49,14 +62,32 @@ function draw_team_scaterplot(element_id) {
       .style("text-anchor", "end")
       .text("Wins");
 
-  svg.selectAll(".dot")
+  container.selectAll(".dot")
       .data(teams)
     .enter().append("image")
-      .attr("class", "dot")
+      .attr("class", function(team) { return "dot " + team.img })
       .attr("xlink:href", function(team) { return '/assets/logos/'+team.img+'.gif'; })
       .attr("x", function(team) { return x(team.year - 0.5); })
       .attr("y", function(team) { return y(team.wins); })
-      .attr("height", 20)
-      .attr("width", 30)
-      .style("fill", function(team) { return color(team.species); });
+      .attr("height", 10)
+      .attr("width", 15)
+      .style("fill", function(team) { return color(team.species); })
+      .on("mouseover",
+        function(team) {
+          container.selectAll('.dot')
+            .style('opacity', 0.1);
+          container.selectAll('.' + team.img)
+            .style('opacity', 1);
+        })
+      .on("mouseout",
+        function(team) {
+          container.selectAll('.dot')
+            .style('opacity', 1);
+        });
+
+
+
+  function zoom() {
+    container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+  }
 }
