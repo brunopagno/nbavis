@@ -9,6 +9,6 @@
       p.lead = "Top #{team.name} players"
       ol
         - team.most_epic_players.each do |player_data|
-          li = link_to player_data.player.firstname + ' ' + player_data.player.lastname + ' [' + player_data.year.to_s + ']'
+          li = link_to player_data.player.firstname + ' ' + player_data.player.lastname + ' [' + player_data.year.to_s + ']', player_data.player
     = render partial: 'players/player_data', locals: { player_datas: team.most_epic_players.first(2) }
     hr

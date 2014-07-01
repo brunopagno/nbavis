@@ -3,6 +3,8 @@ class TeamsController < ApplicationController
 
   def index
     @teams = Team.all
+    teams_js(@teams)
+    gon_set_maxs
   end
 
   def teams

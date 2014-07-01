@@ -1,13 +1,12 @@
-function draw_team_scaterplot(element_id) {
-  teams = gon.teams
+function draw_player_scaterplot(element_id, player_datas) {
   var margin = {top: 20, right: 20, bottom: 30, left: 40};
   var width = $(element_id).innerWidth() - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+  var height = 400 - margin.top - margin.bottom;
 
   var x = d3.scale.linear().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
   x.domain([1998, 2010]);
-  y.domain([8, 70]);
+  y.domain([-1.5, 3.5]);
 
   var xAxis = d3.svg.axis()
       .scale(x)
@@ -19,22 +18,25 @@ function draw_team_scaterplot(element_id) {
       .scale(y)
       .orient("left");
 
-  var zoom = d3.behavior.zoom()
-      .scaleExtent([1, 10])
-      .on("zoom", zoom);
-
   var svg = d3.select(element_id).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .call(zoom);
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var rect = svg.append("rect")
       .attr("width", width)
       .attr("height", height)
       .style("fill", "none")
-      .style("pointer-events", "all");
+      .style("pointer-events", "all")
+      .on("click", function(data) {
+        $('')
+        container.selectAll(".dot").style("fill", "blue");
+        container.select('#playerinfodata')
+            .text('');
+        d3.selectAll('.player-star')
+            .style("display", "none");
+      });
 
   var container = svg.append("g");
 
@@ -58,43 +60,36 @@ function draw_team_scaterplot(element_id) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Wins");
+      .text("Relevance");
+
+  var color = d3.scale.category10();
 
   container.append("text")
-      .attr("id", "teamname")
+      .attr("id", "playerinfodata")
       .attr("x", width / 2)
       .attr("y", 9)
       .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d) { return d; });
+      .style("text-anchor", "middle");
 
   container.selectAll(".dot")
-      .data(teams)
-    .enter().append("image")
-      .attr("class", function(team) { return "dot " + team.img })
-      .attr("xlink:href", function(team) { return team.imgp; })
-      .attr("x", function(team) { return x(team.year - 0.16); })
-      .attr("y", function(team) { return y(team.wins); })
-      .attr("height", 20)
-      .attr("width", 30)
-      .on("mouseover",
-        function(team) {
-          container.selectAll('.dot')
-            .style('opacity', 0.1);
-          container.selectAll('.' + team.img)
-            .style('opacity', 1);
-          container.select('#teamname')
-            .text(team.name);
-        })
-      .on("mouseout",
-        function(team) {
-          container.selectAll('.dot')
-            .style('opacity', 1);
-          container.select('#teamname')
-            .text('');
-        });
+      .data(player_datas)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 5)
+      .attr("cx", function(data) { return x(data.year); })
+      .attr("cy", function(data) { return y(data.relevance); })
+      .style("fill", "blue")
+      .on("click",
+        function(data) {
+          container.selectAll(".dot").style("fill", "blue");
+          d3.select(d3.event.target)
+            .style("fill", "red");
+          container.select('#playerinfodata')
+            .text(data.relevance);
 
-  function zoom() {
-    container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-  }
+          d3.selectAll('.player-star')
+            .style("display", "none");
+          d3.select('#player-data-' + data.ident)
+            .style("display", "block");
+        });
 }

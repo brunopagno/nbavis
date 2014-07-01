@@ -1,4 +1,14 @@
 h2 Players
-- @players.each do |player|
-  p
-    = link_to player.firstname + ' ' + player.lastname, player_path(player)
+
+table.table
+  tr
+    th ID
+    th Name
+    th Last Team Played
+    th Last Relevance
+  - @players.each do |player|
+    tr
+      td = player.id
+      td = link_to player.firstname + ' ' + player.lastname, player_path(player)
+      td = player.last_player_data.team.name
+      td = player.last_player_data.relevance

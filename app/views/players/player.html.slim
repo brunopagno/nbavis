@@ -1,3 +1,52 @@
 h2 = "Player - #{@player.firstname} #{@player.lastname}"
 
-= render partial: 'player_data', locals: { player_datas: @player.player_datas }
+.row
+  .col-lg-8.col-md-8.col-sm-8
+    .scaterplot
+      #player_scaterplot[data-playerdatas=@player.scater_data.to_json]
+  = render partial: 'player_data', locals: { player_datas: @player.player_datas }
+
+.row
+  table.table
+    thead
+      tr
+        th Year
+        th Games played
+        th Minutes
+        th Points
+        th Off rebounds
+        th Def rebounds
+        th Rebounds
+        th Assists
+        th Steals
+        th Blocks
+        th Turnovers
+        th Personal fouls
+        th Field goals
+        th Free throws
+        th Three points
+    tbody
+      - @player.player_datas.each do |pds|
+        tr
+          td = pds.year
+          td = pds.games_played
+          td = pds.minutes
+          td = pds.points
+          td = pds.offensive_rebounds
+          td = pds.defensive_rebounds
+          td = pds.rebounds
+          td = pds.assists
+          td = pds.steals
+          td = pds.blocks
+          td = pds.turnovers
+          td = pds.personal_fouls
+          td = number_to_percentage(pds.field_goals_made.to_f / pds.field_goals_attempted.to_f * 100, precision: 1)
+          td = number_to_percentage(pds.free_throws_made.to_f / pds.free_throws_attempted.to_f * 100, precision: 1)
+          td = number_to_percentage(pds.three_points_made.to_f / pds.three_points_attempted.to_f * 100, precision: 1)
+
+javascript:
+  $('.player-star').css('display', 'none');
+  var player_datas = $('#player_scaterplot').data('playerdatas');
+  $(document).ready(function() {
+    draw_player_scaterplot('#player_scaterplot', player_datas);
+  });

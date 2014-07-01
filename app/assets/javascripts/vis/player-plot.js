@@ -26,7 +26,7 @@ function draw_player_star(element_id, player) {
     .attr('class', 'star-wrapper');
 
   var svg = wrapper.append('svg')
-    .attr('class', 'chart')
+    .attr('class', 'chart star-' + player.year)
     .attr('width', width + margin.left + margin.right)
     .attr('height', width + margin.top + margin.bottom);
 

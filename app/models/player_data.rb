@@ -20,9 +20,11 @@ class PlayerData < ActiveRecord::Base
     relevance += self.blocks.to_f            / $blocks
     relevance -= self.turnovers.to_f         / $turnovers
     relevance -= self.personal_fouls.to_f    / $personal_fouls
-    relevance += self.field_goals_made.to_f  / self.field_goals_attempted.to_f unless self.field_goals_attempted == 0
-    relevance += self.free_throws_made.to_f  / self.free_throws_attempted.to_f unless self.free_throws_attempted == 0
-    relevance += self.three_points_made.to_f / self.three_points_attempted.to_f unless self.three_points_attempted == 0
+    if self.games_played > 6
+      relevance += self.field_goals_made.to_f  / self.field_goals_attempted.to_f unless self.field_goals_attempted == 0
+      relevance += self.free_throws_made.to_f  / self.free_throws_attempted.to_f unless self.free_throws_attempted == 0
+      relevance += self.three_points_made.to_f / self.three_points_attempted.to_f unless self.three_points_attempted == 0
+    end
     return relevance
   end
 
